@@ -6,7 +6,7 @@ import java.util.function.Consumer;
  * Interface für einen Binärbaum.
  *
  */
-public interface BinaryTree<Data> {
+public interface BinaryTree<Data extends Comparable> {
 
     /**
      * Getter für das gespeicherte Element in

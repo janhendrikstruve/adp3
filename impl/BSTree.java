@@ -76,6 +76,23 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
         else {return data;}
     }
 
+    public int pathLength(int length){
+        if (leftNode == null && rightNode == null) {
+            return length;
+        }
+        int i = length;
+        if (leftNode != null) {
+            i += leftNode.pathLength(length+1);
+        }
+
+        if (rightNode != null) {
+            i += rightNode.pathLength(length+1);
+        }
+
+
+        return i;
+    }
+
     @Override
     public int size() {
         if (leftNode == null && rightNode == null) {
@@ -109,6 +126,7 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
         }
         return false;
     }
+
 
     public K getKey() {
         return key;

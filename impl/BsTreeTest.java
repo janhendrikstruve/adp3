@@ -58,4 +58,11 @@ public class BsTreeTest {
             tree.get(30);
         }, "Getting a non-existent key should throw NoSuchElementException.");
     }
+    @Test
+    public void testPathsize(){
+        assertEquals(0,tree.pathLength(0));
+        tree.insert(1,"1");
+        tree.insert(2,"2");
+        assertEquals(1,tree.pathLength(0));
+    }
 }

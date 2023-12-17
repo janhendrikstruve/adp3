@@ -1,37 +1,39 @@
 package de.hawhamburg.hamann.ad.trees.impl;
 
 import de.hawhamburg.hamann.ad.trees.BinarySearchTree;
-import de.hawhamburg.hamann.ad.trees.BinaryTree;
 
 import java.util.NoSuchElementException;
 
 public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E> {
 
-    private K data;
-    private BSTree<K> leftNode;
-    private BSTree<K> rightNode;
+    private K key;
+    private E data;
+    private BSTree<K, E> leftNode;
+    private BSTree<K, E> rightNode;
 
     public BSTree() {
-        data = null;
+        key = null;
         leftNode = null;
         rightNode = null;
+        data= null;
     }
 
     @Override
     public void insert(K k, E e) {
-        if (this.data == null) {
-            this.data = k;
+        if (this.key == null) {
+            this.key = k;
+            this.data = e;
         } else {
-            if (this.data.compareTo(data) > 0) {
+            if (this.key.compareTo(k) > 0) {
                 if (leftNode == null) {
                     leftNode = new BSTree<K, E>();
                 }
-                leftNode.insert(k, leftNode);
-            } else if (this.data.compareTo(data) < 0) {
+                leftNode.insert(k, e);
+            } else if (this.key.compareTo(k) < 0) {
                 if (rightNode == null) {
                     rightNode = new BSTree<K, E>();
                 }
-                rightNode.insert(k, rightNode);
+                rightNode.insert(k, e);
             } else {
                 throw new IllegalArgumentException("Bereits enthalten");
             }
@@ -40,54 +42,44 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
 
     @Override
     public void remove(K k) throws NoSuchElementException {
-        if (this.data.compareTo(k) > 0 && leftNode != null) {
-            leftNode.remove(k);
-        } else if (this.data.compareTo(data) < 0 && rightNode != null) {
-            rightNode.remove(k);
-        } else if (this.data.compareTo(k) == 0) {
 
-            if (leftNode != null && rightNode != null) {
-                if (data.compareTo((K) leftNode.getData()) < 0) {
-                    this.data = (K) leftNode.getData();
-                    leftNode = leftNode.getLeftNode();
-                    rightNode = leftNode.getRightNode();
-                } else {
-                    this.data = (K) rightNode.getData();
-                    leftNode = rightNode.getLeftNode();
-                    rightNode = rightNode.getRightNode();
-                }
-            } else if (leftNode != null) {
-                this.data = (K) leftNode.getData();
-                leftNode = leftNode.getLeftNode();
-                rightNode = leftNode.getRightNode();
-            } else if (rightNode != null) {
-                this.data = (K) rightNode.getData();
-                leftNode = rightNode.getLeftNode();
-                rightNode = rightNode.getRightNode();
-            } else {
-                throw new NoSuchElementException("No such element");
-            }
+        if (leftNode != null && rightNode != null) {
+            K successorVal = findMin(rightNode);
+            this.key = successorVal;
+            rightNode.remove(successorVal);
+        } else if (leftNode != null) {
+            this.key = leftNode.getKey();
+            leftNode = leftNode.getLeftNode();
+            rightNode = leftNode.getRightNode();
+        } else if (rightNode != null) {
+            this.key = rightNode.getKey();
+            leftNode = rightNode.getLeftNode();
+            rightNode = rightNode.getRightNode();
+        } else if (rightNode == null && leftNode == null && key != null) {
+            if (this.key.compareTo(k) == 0) {
+                key = null;
+
         }
+        } else throw new NoSuchElementException("No such element");
     }
+
 
     @Override
     public E get(K k) throws NoSuchElementException {
-        if (data.compareTo(k) == 0) {
-            return (E) data;
+        if(key == null){throw new NoSuchElementException("no such element");}
+        if (key.compareTo(k) < 0 && leftNode != null) {
+            return  leftNode.get(k);
         }
-        if (data.compareTo(k) < 0 && leftNode != null) {
-            return (E) leftNode.get(k);
+        if (key.compareTo(k) > 0 && rightNode != null) {
+            return  rightNode.get(k);
         }
-        if (data.compareTo(k) > 0 && rightNode != null) {
-            return (E) rightNode.get(k);
-        } else {
-            throw new NoSuchElementException();
-        }
+        else {return data;}
     }
 
     @Override
     public int size() {
         if (leftNode == null && rightNode == null) {
+           if(data != null){return 1;}
             return 0;
         }
         int i = 0;
@@ -95,38 +87,47 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
         if (leftNode != null) {
             i += 1 + leftNode.size();
         }
-        ;
+
         if (rightNode != null) {
             i += 1 + rightNode.size();
         }
-        ;
+
 
         return i;
     }
 
     @Override
     public boolean contains(K k) {
-        if (data.compareTo(k) == 0) {
+        if (key.compareTo(k) == 0) {
             return true;
         }
-        if (data.compareTo(k) < 0 && leftNode != null) {
+        if (key.compareTo(k) < 0 && leftNode != null) {
             return leftNode.contains(k);
         }
-        if (data.compareTo(k) > 0 && rightNode != null) {
+        if (key.compareTo(k) > 0 && rightNode != null) {
             return rightNode.contains(k);
         }
         return false;
     }
 
-    public K getData() {
-        return data;
+    public K getKey() {
+        return key;
     }
 
-    public BSTree<K> getLeftNode() {
+    public BSTree<K, E> getLeftNode() {
         return leftNode;
     }
 
-    public BSTree<K> getRightNode() {
+    public BSTree<K, E> getRightNode() {
         return rightNode;
+    }
+
+    private K findMin(BSTree<K, E> node) {
+        K minv = node.key;
+        while (node.leftNode != null) {
+            minv = node.leftNode.key;
+            node = node.leftNode;
+        }
+        return minv;
     }
 }

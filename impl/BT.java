@@ -21,7 +21,7 @@ public class BT<Data extends Comparable> implements BinaryTree<Data> {
         return data;
 
     }
-
+//todo simpler machen
     @Override
     public void setData(Data data) throws IllegalArgumentException {
         if(this.data==null){

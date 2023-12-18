@@ -1,0 +1,1 @@
+Frage: Ist es in ordnung, bei Analyzer bei der Deklaration nicht den Interface-Typ zu nehmen, sondern den Implementationstypen, da sondt die zusaetzlichen Methoden fuer die Path-Length Analyse nicht verfuegbar waeren?

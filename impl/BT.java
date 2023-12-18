@@ -1,7 +1,6 @@
 package de.hawhamburg.hamann.ad.trees.impl;
 
 import de.hawhamburg.hamann.ad.trees.BinaryTree;
-import lombok.NoArgsConstructor;
 
 import java.util.function.Consumer;
 

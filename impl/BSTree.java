@@ -128,8 +128,9 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
     }
 
     public int averagePathLength () {
-        return this.size() / this.pathLength(0);
+        return (this.pathLength(0) / this.size()) + 1;
     }
+
 
     public K getKey() {
         return key;

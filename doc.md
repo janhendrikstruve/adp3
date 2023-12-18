@@ -1,11 +1,5 @@
 Frage: Ist es in ordnung, bei Analyzer bei der Deklaration nicht den Interface-Typ zu nehmen, sondern den Implementationstypen, da sondt die zusaetzlichen Methoden fuer die Path-Length Analyse nicht verfuegbar waeren?
 
-Basierend auf den Aufgaben und der Struktur des `BinarySearchTree.java`-Interfaces sollte Ihre Dokumentation wie folgt aufgebaut sein:
-
----
-
-# Dokumentation der Implementierung des Binären Suchbaums (BST)
-
 ## Titel
 [Ihr Titel]
 
@@ -52,7 +46,3 @@ Zusammenfassung der Erkenntnisse und Einsichten, die aus der Implementierung und
 
 ## Referenzen
 [Liste der in der Implementierung und Analyse verwendeten Referenzen.]
-
----
-
-Stellen Sie sicher, dass Sie die Platzhalter ausfüllen und den Inhalt an Ihre spezifische Implementierung und Analyseergebnisse anpassen. Diese Struktur bietet eine umfassende und detaillierte Dokumentation Ihres BST-Projekts.

@@ -55,7 +55,7 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
             this.key = rightNode.getKey();
             leftNode = rightNode.getLeftNode();
             rightNode = rightNode.getRightNode();
-        } else if (key != null) {
+        } else if (rightNode == null && leftNode == null && key != null) {
             if (this.key.compareTo(k) == 0) {
                 key = null;
 
@@ -76,7 +76,7 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
         else {return data;}
     }
 
-    public int pathLength(int length){
+    int pathLength(int length){
         if (leftNode == null && rightNode == null) {
             return length;
         }

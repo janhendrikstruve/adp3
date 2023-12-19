@@ -1,29 +1,31 @@
 package de.hawhamburg.hamann.ad.trees.impl;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.*;
-@Getter
-@Setter
-public class Graph<T> {
-    private Map<T, List<Edge>> list;
-    private boolean visited;
-    public Graph(){
-        list = new HashMap<>();
-        visited = false;
+
+public class Graph<T, P extends Comparable<P>> {
+
+    private Map<T, List<Edge<T, P>>> adjacencyList;
+
+    public Graph() {
+        this.adjacencyList = new HashMap<>();
     }
 
-    void addNode(T node){
-        list.put(node,new ArrayList<Edge>());
+    public void addNode(T node) {
+        adjacencyList.putIfAbsent(node, new ArrayList<>());
     }
-    void addEdge(T node, Edge edge){
-        if (!list.containsKey(node)) {
-            throw new IllegalArgumentException("Added a edge to a node which was not created");
+
+    public void addEdge(T from, T to, P prio) {
+        if (!adjacencyList.containsKey(from) || !adjacencyList.containsKey(to)) {
+            throw new IllegalArgumentException("Edge added to non-existing nodes");
         }
-        list.get(node).add(edge);
+        adjacencyList.get(from).add(new Edge<>(to, prio));
+        // If the graph is undirected, add an edge in the opposite direction as well
+        // adjacencyList.get(to).add(new Edge<>(from, prio));
     }
-    List<Edge> getNode(T key){
-        return list.get(key);
+
+    public List<Edge<T, P>> getNode(T node) {
+        return adjacencyList.getOrDefault(node, Collections.emptyList());
     }
+
+    // Any other methods you might need for your Graph class
 }

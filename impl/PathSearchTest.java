@@ -5,10 +5,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
+
+
 public class PathSearchTest {
 
     private Graph<Integer, Integer> graph;
     private PathSearch<Integer> pathSearch;
+    Map<Pair, Integer> expectedDistances;;
+
+
 
     @BeforeEach
     public void setup() {
@@ -31,6 +36,18 @@ public class PathSearchTest {
         graph.addEdge(5, 4, 6);
 
         pathSearch = new PathSearch<>(graph);
+
+        expectedDistances = new HashMap<>();
+        expectedDistances.put(new Pair(1, 2), 10);
+        expectedDistances.put(new Pair(1, 3), 5);
+        expectedDistances.put(new Pair(2, 3), 2);
+        expectedDistances.put(new Pair(2, 4), 1);
+        expectedDistances.put(new Pair(3, 2), 3);
+        expectedDistances.put(new Pair(3, 4), 9);
+        expectedDistances.put(new Pair(3, 5), 2);
+        expectedDistances.put(new Pair(4, 5), 4);
+        expectedDistances.put(new Pair(5, 1), 7);
+        expectedDistances.put(new Pair(5, 4), 6);
     }
 
     @Test
@@ -75,33 +92,18 @@ public class PathSearchTest {
 
     @Test
     public void testBreadthFirstSearchCorrectness() {
-        Map<Integer, Integer> expectedDistances = new HashMap<>();
-        // Populate with expected distances from node 1 for BFS
-        // These values depend on your graph structure
-        expectedDistances.put(1, 0);
-        expectedDistances.put(2, 1);
-        expectedDistances.put(3, 1);
-        expectedDistances.put(4, 2);
-        expectedDistances.put(5, 2);
 
-        Map<Integer, Integer> actualDistances = pathSearch.breadthFirstSearch(1);
+
+        Map<Integer, Integer> actualDistances = pathSearch.breadthSearch(1);
 
         assertEquals(expectedDistances, actualDistances, "BFS should return correct distances.");
     }
 
     @Test
     public void testDepthFirstSearchCorrectness() {
-        Map<Integer, Integer> expectedDepths = new HashMap<>();
-        // Populate with expected depths from node 1 for DFS
-        // These values depend on your graph and DFS implementation
-        expectedDepths.put(1, 0);
-        expectedDepths.put(2, 1);
-        expectedDepths.put(3, 1);
-        expectedDepths.put(4, 2);
-        expectedDepths.put(5, 2);
 
-        Map<Integer, Integer> actualDepths = pathSearch.depthFirstSearch(1);
+        Map<Integer, Integer> actualDepths = pathSearch.depthSearch(1);
 
-        assertEquals(expectedDepths, actualDepths, "DFS should return correct depths.");
+        assertEquals(expectedDistances, actualDepths, "DFS should return correct depths.");
     }
 }

@@ -35,7 +35,7 @@ public class PathSearch<T> {
         return distances;
     }
 
-    public Map<T, Integer> breadthFirstSearch(T source) {
+    public Map<T, Integer> breadthSearch(T source) {
         Map<T, Integer> distances = new HashMap<>();
         Queue<T> queue = new LinkedList<>();
 
@@ -58,26 +58,25 @@ public class PathSearch<T> {
         return distances;
     }
 
-    public Map<T, Integer> depthFirstSearch(T source) {
+    public Map<T, Integer> depthSearch(T source) {
         Map<T, Integer> distances = new HashMap<>();
         Set<T> visited = new HashSet<>();
-        dfsUtil(source, 0, distances, visited);
+        recursion(source, 0, distances, visited);
         return distances;
     }
 
-    private void dfsUtil(T node, int depth, Map<T, Integer> distances, Set<T> visited) {
+    private void recursion(T node, int depth, Map<T, Integer> distances, Set<T> visited) {
         visited.add(node);
         distances.put(node, depth);
 
         for (Edge<T, Integer> edge : graph.getNode(node)) {
             T neighbor = edge.getNode();
             if (!visited.contains(neighbor)) {
-                dfsUtil(neighbor, depth + 1, distances, visited);
+                recursion(neighbor, depth + 1, distances, visited);
             }
         }
     }
     private Integer sum(Integer a, Integer b) {
-        // Null check for initial cases where the sum involves the source node
         if (a == null) a = 0;
         if (b == null) b = 0;
         return a + b;

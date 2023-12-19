@@ -1,5 +1,7 @@
-import matplotlib.pyplot as plt  # Import the matplotlib library for plotting
+
 import pandas as pd  # Import pandas for data manipulation
+import matplotlib.pyplot as plt
+
 
 csv_path = 'averagePathLength.csv'  # Path to the CSV file
 

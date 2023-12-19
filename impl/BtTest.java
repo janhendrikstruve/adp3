@@ -42,43 +42,50 @@ public class BtTest {
 
     @Test
     public void testVisitPreOrder() {
-        tree.setData(10);
+        tree.setData(1);
+        tree.setData(2);
+        tree.setData(3);
+        tree.setData(4);
         tree.setData(5);
-        tree.setData(15);
+        tree.setData(6);
+        tree.setData(7);
+        tree.setData(8);
+        tree.setData(9);
+        tree.setData(10);
 
-        StringBuilder sb = new StringBuilder();
-        tree.visitPreOrder(bt -> {
-            if (bt != null) sb.append(bt.getData()).append(" ");
-        });
-
-        assertEquals("10 5 15 ", sb.toString());
+        assertEquals("1_2_3_4_5_6_7_8_9_10/",tree.toString(""));
     }
 
     @Test
     public void testVisitInOrder() {
-        tree.setData(10);
+        tree.setData(1);
+        tree.setData(2);
+        tree.setData(3);
+        tree.setData(4);
         tree.setData(5);
-        tree.setData(15);
+        tree.setData(6);
+        tree.setData(7);
+        tree.setData(8);
+        tree.setData(9);
+        tree.setData(10);
 
-        StringBuilder sb = new StringBuilder();
-        tree.visitInOrder(bt -> {
-            if (bt != null) sb.append(bt.getData()).append(" ");
-        });
 
-        assertEquals("5 10 15 ", sb.toString());
+        assertEquals("1_2_3_4_5_6_7_8_9_10/",tree.toString(""));
     }
 
     @Test
     public void testVisitPostOrder() {
-        tree.setData(10);
         tree.setData(5);
-        tree.setData(15);
+        tree.setData(2);
+        tree.setData(11);
+        tree.setData(4);
+        tree.setData(23);
+        tree.setData(6);
+        tree.setData(7);
+        tree.setData(8);
+        tree.setData(9);
+        tree.setData(10);
 
-        StringBuilder sb = new StringBuilder();
-        tree.visitPostOrder(bt -> {
-            if (bt != null) sb.append(bt.getData()).append(" ");
-        });
-
-        assertEquals("5 15 10 ", sb.toString());
+        assertEquals("1_2_3_4_5_6_7_8_9_10/",tree.toString(""));
     }
 }

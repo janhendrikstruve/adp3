@@ -11,7 +11,7 @@ public class PathSearchTest {
 
     private Graph<Integer, Integer> graph;
     private PathSearch<Integer> pathSearch;
-    Map<Pair, Integer> expectedDistances;;
+    Map<Integer, Integer> expectedDistances;;
 
 
 
@@ -19,47 +19,52 @@ public class PathSearchTest {
     public void setup() {
         graph = new Graph<>();
         // Add nodes. For simplicity, let's assume nodes are integers.
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 8; i++) {
             graph.addNode(i);
         }
 
         // Add edges with weights
-        graph.addEdge(1, 2, 10);
-        graph.addEdge(1, 3, 5);
-        graph.addEdge(2, 3, 2);
+        graph.addEdge(1, 2, 1);
+        graph.addEdge(1, 3, 1);
+
+        graph.addEdge(2, 1, 1);
         graph.addEdge(2, 4, 1);
-        graph.addEdge(3, 2, 3);
-        graph.addEdge(3, 4, 9);
-        graph.addEdge(3, 5, 2);
-        graph.addEdge(4, 5, 4);
-        graph.addEdge(5, 1, 7);
-        graph.addEdge(5, 4, 6);
+
+        graph.addEdge(3, 1, 1);
+        graph.addEdge(3, 2, 1);
+        graph.addEdge(3, 4, 1);
+
+        graph.addEdge(4, 2, 1);
+        graph.addEdge(4, 3, 1);
+        graph.addEdge(4, 5, 1);
+
+        graph.addEdge(5, 4, 1);
+        graph.addEdge(5, 6, 1);
+        graph.addEdge(5, 7, 1);
+        graph.addEdge(5, 8, 1);
+
+        graph.addEdge(6, 5, 1);
+
+        graph.addEdge(7, 5, 1);
+
+        graph.addEdge(8, 5, 1);
+
 
         pathSearch = new PathSearch<>(graph);
 
         expectedDistances = new HashMap<>();
-        expectedDistances.put(new Pair(1, 2), 10);
-        expectedDistances.put(new Pair(1, 3), 5);
-        expectedDistances.put(new Pair(2, 3), 2);
-        expectedDistances.put(new Pair(2, 4), 1);
-        expectedDistances.put(new Pair(3, 2), 3);
-        expectedDistances.put(new Pair(3, 4), 9);
-        expectedDistances.put(new Pair(3, 5), 2);
-        expectedDistances.put(new Pair(4, 5), 4);
-        expectedDistances.put(new Pair(5, 1), 7);
-        expectedDistances.put(new Pair(5, 4), 6);
+        expectedDistances.put(1,0);
+        expectedDistances.put(2,1);
+        expectedDistances.put(3,1);
+        expectedDistances.put(4,2);
+        expectedDistances.put(5,3);
+        expectedDistances.put(6,4);
+        expectedDistances.put(7,4);
+        expectedDistances.put(8,4);
     }
 
     @Test
     public void testDijkstraCorrectness() {
-        Map<Integer, Integer> expectedDistances = new HashMap<>();
-        // Populate with expected shortest paths from node 1
-        expectedDistances.put(1, 0);
-        expectedDistances.put(2, 7);  // Example path: 1 -> 3 -> 2
-        expectedDistances.put(3, 5);  // Example path: 1 -> 3
-        expectedDistances.put(4, 8);  // Example path: 1 -> 3 -> 2 -> 4
-        expectedDistances.put(5, 7);  // Example path: 1 -> 3 -> 5
-
         Map<Integer, Integer> actualDistances = pathSearch.dijkstra(1);
 
         assertEquals(expectedDistances, actualDistances, "Dijkstra algorithm should return correct shortest paths.");
@@ -74,8 +79,7 @@ public class PathSearchTest {
         long duration = endTime - startTime;
         System.out.println("Execution Time for Dijkstra: " + duration + " nanoseconds");
 
-        // Optional: Assert on the duration if you have a performance requirement
-        // assertTrue(duration < MAX_ACCEPTABLE_DURATION);
+
     }
 
     @Test

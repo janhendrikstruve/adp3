@@ -7,8 +7,8 @@ import java.util.function.Consumer;
 public class BT<Data extends Comparable> implements BinaryTree<Data> {
 
     private Data data;
-    private BinaryTree<Data> leftNode;
-    private BinaryTree<Data> rightNode;
+    private BT<Data> leftNode;
+    private BT<Data> rightNode;
 
     public BT(){
         data = null;
@@ -20,7 +20,21 @@ public class BT<Data extends Comparable> implements BinaryTree<Data> {
         return data;
 
     }
-//todo simpler machen
+
+    public String toString(String s){
+        String temp = s+"";
+       if(this.isLeaf()){
+           return s + this.data+"/";
+       }
+       if(leftNode!= null){
+           temp += this.data+ "-"+ leftNode.toString("")+"";
+       }
+       if(rightNode!= null){
+           temp += this.data + "_"+ rightNode.toString("")+"";
+       }
+       return temp;
+    }
+
     @Override
     public void setData(Data data) throws IllegalArgumentException {
         if(this.data==null){
@@ -64,6 +78,7 @@ public class BT<Data extends Comparable> implements BinaryTree<Data> {
 
     @Override
     public void visitInOrder(Consumer<BinaryTree<Data>> visitor) {
+       // todo es fehlt recursive
         visitor.accept(leftNode);
         visitor.accept(this);
         visitor.accept(rightNode);

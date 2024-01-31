@@ -7,10 +7,17 @@ public class PathSearch<T> {
     private Graph<T, Integer> graph;
 
     public PathSearch(Graph<T, Integer> graph) {
+        if (graph == null) {
+            throw new IllegalArgumentException("Graph cannot be null.");
+        }
         this.graph = graph;
     }
 
     public Map<T, Integer> dijkstra(T source) {
+        if (!graph.containsNode(source)) {
+            throw new NoSuchElementException("Source element is not present in the graph.");
+        }
+
         Map<T, Integer> distances = new HashMap<>();
         PriorityQueue<Edge<T, Integer>> queue = new PriorityQueue<>(Comparator.comparing(Edge::getPrio));
 
@@ -31,7 +38,6 @@ public class PathSearch<T> {
                 }
             }
         }
-
         return distances;
     }
 

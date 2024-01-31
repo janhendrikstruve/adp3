@@ -1,14 +1,18 @@
 package de.hawhamburg.hamann.ad.trees.impl;
 
 import de.hawhamburg.hamann.ad.trees.BinarySearchTree;
+import lombok.Getter;
 
 import java.util.NoSuchElementException;
 
 public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E> {
 
+    @Getter
     private K key;
     private E data;
+    @Getter
     private BSTree<K, E> leftNode;
+    @Getter
     private BSTree<K, E> rightNode;
 
     public BSTree() {
@@ -131,18 +135,6 @@ public class BSTree<K extends Comparable<K>, E> implements BinarySearchTree<K, E
         return (this.pathLength(0) / this.size()) + 1;
     }
 
-
-    public K getKey() {
-        return key;
-    }
-
-    public BSTree<K, E> getLeftNode() {
-        return leftNode;
-    }
-
-    public BSTree<K, E> getRightNode() {
-        return rightNode;
-    }
 
     private K findMin(BSTree<K, E> node) {
         K minv = node.key;

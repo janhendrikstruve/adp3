@@ -27,4 +27,7 @@ public class Graph<T, P extends Comparable<P>> {
     }
 
 
+    public boolean containsNode(T source) {
+        return adjacencyList.containsKey(source);
+    }
 }

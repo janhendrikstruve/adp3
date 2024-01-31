@@ -1,9 +1,8 @@
 import math
-
 import pandas as pd  # Import pandas for data manipulation
 import matplotlib.pyplot as plt
-
-
+import matplotlib
+matplotlib.use('TkAgg') ##Damit das bei Dario Läuft :)
 csv_path = 'averagePathLength.csv'  # Path to the CSV file
 
 data = pd.read_csv(csv_path)  # Read the CSV file into a pandas DataFrame
@@ -13,6 +12,7 @@ numberOfKeys = data.iloc[:, 0]
 # Extract the second column (assumed to be the average path length); it should be iloc[:, 1] instead of [:, 1]
 averagePathLength = data.iloc[:, 1]
 calculatedPathLength = data.iloc[:, 1]
+
 for i in range(len(averagePathLength)):
     calculatedPathLength[i] = 1.39 * math.log2(numberOfKeys[i]-1.85)
 
